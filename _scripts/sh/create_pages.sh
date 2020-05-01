@@ -19,16 +19,16 @@ category_count=0
 tag_count=0
 
 read_categories() {
-  if [[ $(grep "categories:" $1) ]]; then
-    grep "categories:" $1 | head -1 | sed 's/categories: *//;s/\[//;s/\]//;s/, */,/g;s/"//g'
-  elif [[  $(grep "category:" $1) ]]; then
-    grep "category:" $1 | head -1 | sed 's/category: *//;s/\[//;s/\]//;s/, */,/g;s/"//g'
+  if [[ ! -z $(grep "^categories:" $1) ]]; then
+    grep "^categories:" $1 | head -1 | sed "s/categories: *//;s/\[//;s/\]//;s/, */,/g;s/\"//g;s/'//g"
+  elif [[ ! -z $(grep "^category:" $1) ]]; then
+    grep "^category:" $1 | head -1 | sed "s/category: *//;s/\[//;s/\]//;s/, */,/g;s/\"//g;s/'//g"
   fi
 }
 
 
 read_tags() {
-  grep "tags:" $1 | head -1 | sed 's/tags: *//;s/\[//;s/\]//;s/, */,/g;s/"//g'
+  grep "^tags:" $1 | head -1 | sed "s/tags: *//;s/\[//;s/\]//;s/, */,/g;s/\"//g;s/'//g"
 }
 
 
